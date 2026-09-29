@@ -1,219 +1,257 @@
-// --- DATA STORES ---
-
-// 1. Coding Courses Data
-const codingTracks = {
-    SQL: [
-        { title: "SQL Queries & Database Fundamentals", vid: "HXV3zeQKqGY" },
-        { title: "Joins, Grouping & Aggregations", vid: "7S_tz1z_5bA" },
-        { title: "Indexes & Query Optimization", vid: "BHwF824pA24" }
-    ],
-    Python: [
-        { title: "Python Basics for Beginners", vid: "kqtD5dpn9C8" },
-        { title: "Data Structures & Control Flow", vid: "rfscVS0vtbw" }
-    ],
-    "C#": [
-        { title: "C# Fundamentals & Syntax", vid: "GhQdlIFylWY" },
-        { title: "C# Object-Oriented Programming", vid: "gfkTfcpWqAY" }
-    ],
-    JavaScript: [
-        { title: "JavaScript ES6 Core Concepts", vid: "W6NZfCO5SIk" },
-        { title: "Async/Await & Fetch API", vid: "PoRJizFvM7s" }
-    ],
-    TypeScript: [
-        { title: "TypeScript Beginner Crash Course", vid: "BCg4U1FzODs" }
-    ],
-    "HTML & CSS": [
-        { title: "HTML5 Layouts & Elements", vid: "UB1O30fR-EE" },
-        { title: "CSS Flexbox & Grid Mastery", vid: "1Rs2ND1ryYc" }
-    ]
+// --- SKILLS DATABASE ---
+const coursesData = {
+    Coding: {
+        "SQL": [
+            { title: "SQL Queries & Database Basics", vid: "HXV3zeQKqGY" },
+            { title: "Joins, Grouping & Aggregations", vid: "7S_tz1z_5bA" }
+        ],
+        "Python": [
+            { title: "Python Beginners Crash Course", vid: "kqtD5dpn9C8" },
+            { title: "Data Structures & Loops", vid: "rfscVS0vtbw" }
+        ],
+        "JavaScript": [
+            { title: "JavaScript ES6 Core Concepts", vid: "W6NZfCO5SIk" },
+            { title: "Async/Await & Fetch API", vid: "PoRJizFvM7s" }
+        ]
+    },
+    PenSpinning: {
+        "Fundamental Tricks": [
+            { title: "Double Charge Trick Tutorial", vid: "6B4M5K-iY7g" },
+            { title: "Infinity Trick Tutorial", vid: "20mGThwI1oM" },
+            { title: "Thumb Around Tutorial", vid: "vEvP_A03A8c" },
+            { title: "Sonic Trick Tutorial", vid: "0433E7GvLIs" }
+        ],
+        "Combo Links": [
+            { title: "Top 5 Easy Pen Spinning Combos", vid: "kZ7BIn_P7O0" }
+        ]
+    },
+    Handwriting: {
+        "Cursive Basics": [
+            { title: "How to Improve Handwriting Fast", vid: "1Y1e90l40Y8" },
+            { title: "Cursive Alphabet Practice & Drills", vid: "49a17O-Jj98" }
+        ],
+        "Calligraphy": [
+            { title: "Beginner Calligraphy & Lettering", vid: "sBoVGqiSzrE" }
+        ]
+    },
+    Design: {
+        "Figma UI/UX": [
+            { title: "Figma Fundamentals for Beginners", vid: "FTFaQWZBqQ8" },
+            { title: "Designing Responsive Interfaces", vid: "c9Wg6Cb_YlU" }
+        ]
+    },
+    Marketing: {
+        "Digital Marketing": [
+            { title: "Digital Marketing Strategy Guide", vid: "nU-IIXBWlS4" }
+        ]
+    },
+    Cybersecurity: {
+        "Ethical Hacking": [
+            { title: "Ethical Hacking & Security Fundamentals", vid: "3Kq1MIfTWCE" }
+        ]
+    },
+    ScamLearning: null // Trigger for Coming Soon State
 };
 
-// 2. Public Domain Audiobooks & Books Data
-const libraryData = [
-    {
-        id: 1,
-        title: "Pride and Prejudice",
-        author: "Jane Austen",
-        cover: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-        audioUrl: "https://ia800203.us.archive.org/11/items/pride_and_prejudice_librivox/prideandprejudice_01_austen_64kb.mp3",
-        gutenbergId: 1342
-    },
-    {
-        id: 2,
-        title: "The Adventures of Sherlock Holmes",
-        author: "Arthur Conan Doyle",
-        cover: "https://www.gutenberg.org/cache/epub/1661/pg1661.cover.medium.jpg",
-        audioUrl: "https://ia800202.us.archive.org/12/items/adventures_sherlock_holmes_0711_librivox/sherlockholmes_01_doyle_64kb.mp3",
-        gutenbergId: 1661
-    },
-    {
-        id: 3,
-        title: "Alice's Adventures in Wonderland",
-        author: "Lewis Carroll",
-        cover: "https://www.gutenberg.org/cache/epub/11/pg11.cover.medium.jpg",
-        audioUrl: "https://ia802607.us.archive.org/21/items/alices_adventures_1005_librivox/alicesadventuresinwonderland_01_carroll_64kb.mp3",
-        gutenbergId: 11
-    }
+// --- MOCK LEADERBOARD DATA ---
+let mockUsers = [
+    { name: "Alex Rover", points: 240, avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Alex" },
+    { name: "Sarah Connor", points: 180, avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Sarah" },
+    { name: "David Tech", points: 120, avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=David" }
 ];
 
 // --- APP STATE ---
-let userPoints = parseInt(localStorage.getItem('user_points')) || 0;
+let profile = JSON.parse(localStorage.getItem('user_profile')) || {
+    name: "Learner",
+    points: 0,
+    avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Learner"
+};
+
+let currentCategory = "Coding";
 let currentTrack = "SQL";
-let watchTimer = null;
+let timer = null;
 let secondsWatched = 0;
-let activeBook = null;
 
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
-    updatePointsDisplay();
-    renderTrackButtons();
-    renderLessons();
-    renderBooks();
+    loadProfileUI();
+    renderSubtracks();
+    renderLeaderboard();
 });
 
-// Tab Switcher
+// Tab Navigation
 function switchTab(tabName) {
-    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
 
-    if (tabName === 'coding') {
-        document.getElementById('coding-tab').classList.add('active');
-        document.getElementById('btn-coding').classList.add('active');
-    } else if (tabName === 'library') {
-        document.getElementById('library-tab').classList.add('active');
-        document.getElementById('btn-library').classList.add('active');
+    document.getElementById(`${tabName}-tab`).classList.add('active');
+    document.getElementById(`btn-${tabName}`).classList.add('active');
+
+    if (tabName === 'leaderboard') renderLeaderboard();
+}
+
+// Category & Subtrack Logic
+function filterCategory(cat, btnElement) {
+    currentCategory = cat;
+    document.querySelectorAll('.category-bar .cat-btn').forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+    
+    const courseContentArea = document.getElementById('course-content-area');
+    const comingSoonCard = document.getElementById('coming-soon-card');
+    const subtrackButtons = document.getElementById('subtrack-buttons');
+
+    if (cat === 'ScamLearning') {
+        courseContentArea.classList.add('hidden');
+        subtrackButtons.style.display = 'none';
+        comingSoonCard.classList.remove('hidden');
+        return;
+    } else {
+        courseContentArea.classList.remove('hidden');
+        subtrackButtons.style.display = 'flex';
+        comingSoonCard.classList.add('hidden');
     }
+
+    currentTrack = Object.keys(coursesData[cat])[0];
+    renderSubtracks();
 }
 
-// Points Logic
-function addPoints(pts) {
-    userPoints += pts;
-    localStorage.setItem('user_points', userPoints);
-    updatePointsDisplay();
-}
-
-function updatePointsDisplay() {
-    document.getElementById('points-display').innerText = userPoints;
-}
-
-// --- CODING SECTION ---
-function renderTrackButtons() {
-    const container = document.getElementById('lang-buttons');
-    if (!container) return;
+function renderSubtracks() {
+    const container = document.getElementById('subtrack-buttons');
     container.innerHTML = '';
 
-    Object.keys(codingTracks).forEach(track => {
+    if (!coursesData[currentCategory]) return;
+
+    const tracks = Object.keys(coursesData[currentCategory]);
+    tracks.forEach(track => {
         const btn = document.createElement('button');
-        btn.className = `lang-btn ${track === currentTrack ? 'active' : ''}`;
+        btn.className = `cat-btn ${track === currentTrack ? 'active' : ''}`;
         btn.innerText = track;
         btn.onclick = () => {
             currentTrack = track;
-            renderTrackButtons();
-            renderLessons();
+            renderSubtracks();
         };
         container.appendChild(btn);
     });
+
+    renderLessons();
 }
 
 function renderLessons() {
-    const list = document.getElementById('lesson-list');
-    if (!list) return;
-    list.innerHTML = '';
+    const container = document.getElementById('lesson-list');
+    container.innerHTML = '';
+    
+    document.getElementById('current-track-title').innerText = `${currentTrack} Lessons`;
+    const lessons = coursesData[currentCategory][currentTrack] || [];
 
-    const lessons = codingTracks[currentTrack] || [];
-    lessons.forEach(lesson => {
+    lessons.forEach((lesson, index) => {
         const item = document.createElement('div');
         item.className = 'lesson-item';
-        item.innerText = lesson.title;
-        item.onclick = () => playLesson(lesson.vid);
-        list.appendChild(item);
+        item.innerText = `${index + 1}. ${lesson.title}`;
+        item.onclick = () => playLesson(lesson.vid, item);
+        container.appendChild(item);
     });
 
-    if (lessons.length > 0) playLesson(lessons[0].vid);
+    if (lessons.length > 0) {
+        const firstLesson = container.querySelector('.lesson-item');
+        if (firstLesson) playLesson(lessons[0].vid, firstLesson);
+    }
 }
 
-function playLesson(vid) {
+function playLesson(vid, element) {
+    document.querySelectorAll('.lesson-item').forEach(i => i.classList.remove('active'));
+    if (element) element.classList.add('active');
+
     document.getElementById('video-player').src = `https://www.youtube.com/embed/${vid}?autoplay=1`;
-    startLessonTimer();
+    startTimer();
 }
 
-function startLessonTimer() {
-    clearInterval(watchTimer);
+// Watch Timer & Points
+function startTimer() {
+    clearInterval(timer);
     secondsWatched = 0;
     const claimBtn = document.getElementById('claim-btn');
     const status = document.getElementById('timer-status');
-    
+    const progressFill = document.getElementById('progress-fill');
+
     claimBtn.disabled = true;
+    progressFill.style.width = '0%';
     status.innerText = `⏱ Watch Timer: 0s / 30s`;
 
-    watchTimer = setInterval(() => {
+    timer = setInterval(() => {
         secondsWatched++;
+        let pct = (secondsWatched / 30) * 100;
+        progressFill.style.width = `${Math.min(pct, 100)}%`;
         status.innerText = `⏱ Watch Timer: ${secondsWatched}s / 30s`;
-        
+
         if (secondsWatched >= 30) {
-            clearInterval(watchTimer);
+            clearInterval(timer);
             claimBtn.disabled = false;
-            status.innerText = `✅ 30 seconds reached! Claim your points below.`;
+            status.innerText = `✅ Requirements met! Claim points.`;
         }
     }, 1000);
 }
 
 function claimLessonPoints() {
-    addPoints(20);
+    profile.points += 20;
+    saveAndSyncProfile();
     document.getElementById('claim-btn').disabled = true;
-    alert("🎉 +20 PTS added to your account!");
+    alert("🎉 +20 PTS added!");
 }
 
-// --- BOOKS & AUDIO SECTION ---
-function renderBooks() {
-    const grid = document.getElementById('books-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
+// Profile Management
+function selectPresetAvatar(src) {
+    document.getElementById('avatar-url-input').value = src;
+    document.getElementById('profile-avatar-preview').src = src;
+}
 
-    libraryData.forEach(book => {
-        const div = document.createElement('div');
-        div.className = 'book-card';
-        div.innerHTML = `
-            <img src="${book.cover}" alt="${book.title}" />
-            <h3>${book.title}</h3>
-            <p>by ${book.author}</p>
-            <button class="action-btn" onclick="openBookReader(${book.id})">📖 Read & Listen</button>
+function saveProfile(event) {
+    event.preventDefault();
+    const newName = document.getElementById('username-input').value.trim();
+    const newAvatar = document.getElementById('avatar-url-input').value.trim();
+
+    if (newName) profile.name = newName;
+    if (newAvatar) profile.avatar = newAvatar;
+
+    saveAndSyncProfile();
+    alert("✅ Profile updated successfully!");
+}
+
+function saveAndSyncProfile() {
+    localStorage.setItem('user_profile', JSON.stringify(profile));
+    loadProfileUI();
+}
+
+function loadProfileUI() {
+    document.getElementById('nav-username').innerText = profile.name;
+    document.getElementById('points-display').innerText = profile.points;
+    document.getElementById('nav-avatar').src = profile.avatar;
+
+    document.getElementById('profile-name-display').innerText = profile.name;
+    document.getElementById('profile-pts-display').innerText = profile.points;
+    document.getElementById('profile-avatar-preview').src = profile.avatar;
+    document.getElementById('username-input').value = profile.name;
+    document.getElementById('avatar-url-input').value = profile.avatar;
+}
+
+// Leaderboard Logic
+function renderLeaderboard() {
+    const list = document.getElementById('leaderboard-list');
+    list.innerHTML = '';
+
+    let allUsers = [...mockUsers, { name: profile.name, points: profile.points, avatar: profile.avatar, isUser: true }];
+    allUsers.sort((a, b) => b.points - a.points);
+
+    allUsers.forEach((u, index) => {
+        const item = document.createElement('div');
+        item.className = `leaderboard-item ${u.isUser ? 'is-user' : ''}`;
+        item.innerHTML = `
+            <span class="rank">#${index + 1}</span>
+            <img src="${u.avatar}" alt="Avatar">
+            <div class="user-info">
+                <strong>${u.name} ${u.isUser ? '(You)' : ''}</strong>
+            </div>
+            <span class="pts-badge">${u.points} PTS</span>
         `;
-        grid.appendChild(div);
+        list.appendChild(item);
     });
-}
-
-function openBookReader(bookId) {
-    activeBook = libraryData.find(b => b.id === bookId);
-    if (!activeBook) return;
-
-    document.getElementById('reader-view').classList.remove('hidden');
-    document.getElementById('current-book-title').innerText = `${activeBook.title} - by ${activeBook.author}`;
-    
-    const audioPlayer = document.getElementById('audio-player');
-    audioPlayer.src = activeBook.audioUrl;
-    audioPlayer.play().catch(err => console.log("User interaction required for autoplay"));
-
-    document.getElementById('book-pages').innerText = 'Click "Fetch Pages from Gutenberg API" to load full book pages...';
-}
-
-async function loadBookPages() {
-    if (!activeBook) return;
-    const pagesDisplay = document.getElementById('book-pages');
-    pagesDisplay.innerText = "⏳ Loading pages from Project Gutenberg API...";
-
-    try {
-        const response = await fetch(`https://gn.gutenberg.org/cache/epub/${activeBook.gutenbergId}/pg${activeBook.gutenbergId}.txt`);
-        if (!response.ok) throw new Error("Could not fetch book text");
-        
-        const fullText = await response.text();
-        pagesDisplay.innerText = fullText.substring(0, 4000) + "\n\n[... Continuation in full Gutenberg archive ...]";
-    } catch (err) {
-        pagesDisplay.innerText = "⚠️ Unable to load text directly. Please check internet connection.";
     }
-}
-
-function closeReader() {
-    document.getElementById('reader-view').classList.add('hidden');
-    document.getElementById('audio-player').pause();
-          }
