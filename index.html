@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn & Master - Books & Skills</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <h2>LearnHub</h2>
+        <ul>
+            <li class="active" data-tab="dashboard-tab">📊 Dashboard</li>
+            <li data-tab="books-tab">📚 Books Library</li>
+            <li data-tab="skills-tab">🎯 Skills & Video Player</li>
+            <li data-tab="leaderboard-tab">🏆 Leaderboard</li>
+        </ul>
+        <div class="user-profile">
+            <div class="avatar">U</div>
+            <div class="info">
+                <span class="username">You (Learner)</span>
+                <span class="user-level" id="user-badges-count">Badges: 0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="content">
+
+        <!-- DASHBOARD TAB -->
+        <section id="dashboard-tab" class="tab-content active">
+            <h1>Welcome Back!</h1>
+            <p>Continue your journey of learning books and acquiring real-world skills.</p>
+            
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>📖 Recently Read Books</h3>
+                    <ul id="recent-books-list" class="activity-list">
+                        <li class="empty">No books read yet. Start reading!</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>⚡ Skills You Are Learning</h3>
+                    <div id="recent-skills-list" class="skills-progress-container">
+                        <p class="empty">No skills started yet. Pick a skill to learn!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card margin-top">
+                <h3>🏅 Your Badges</h3>
+                <div id="dashboard-badges" class="badges-grid">
+                    <p class="empty">Complete 100% of any skill to earn your first badge!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOOKS TAB -->
+        <section id="books-tab" class="tab-content">
+            <h1>Book Library</h1>
+            <div class="category-filter">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="psychology">Psychology</button>
+                <button class="filter-btn" data-category="wealth">Money & Wealth</button>
+                <button class="filter-btn" data-category="school">School Books</button>
+                <button class="filter-btn" data-category="history">History</button>
+            </div>
+
+            <div id="books-grid" class="books-grid"></div>
+        </section>
+
+        <!-- SKILLS TAB -->
+        <section id="skills-tab" class="tab-content">
+            <h1>Skill Video Courses</h1>
+            <div class="skills-container">
+                <!-- Skill Selection Sidebar -->
+                <div class="skill-selector">
+                    <h3>Select Skill</h3>
+                    <ul id="skills-list"></ul>
+                </div>
+
+                <!-- Video Player & Playlist -->
+                <div class="video-player-section">
+                    <h2 id="active-skill-title">Select a skill to start</h2>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="skill-progress-bar"></div>
+                        <span id="skill-progress-text">0% Mastered</span>
+                    </div>
+
+                    <div class="iframe-wrapper">
+                        <iframe id="yt-player" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+
+                    <div class="playlist-controls">
+                        <h3>Course Lessons / Playlist</h3>
+                        <div id="playlist-items" class="playlist-items"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEADERBOARD TAB -->
+        <section id="leaderboard-tab" class="tab-content">
+            <h1>Global Leaderboard</h1>
+            <p>Top learners mastering skills and reading books across the platform.</p>
+            
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>User</th>
+                        <th>Skills Mastered</th>
+                        <th>Badges</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body"></tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <!-- READ BOOK MODAL -->
+    <div id="book-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-book-modal">&times;</span>
+            <h2 id="modal-book-title">Book Title</h2>
+            <h4 id="modal-book-author">Author</h4>
+            <div class="modal-body">
+                <div class="audio-player-mock">
+                    <p>🎧 Audio Version Playing...</p>
+                    <audio id="audio-player" controls>
+                        <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <h3>Summary / Excerpt</h3>
+                <p id="modal-book-content">Book text content goes here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MASTERY CONGRATS MODAL -->
+    <div id="mastery-modal" class="modal">
+        <div class="modal-content text-center">
+            <span class="close-btn" id="close-mastery-modal">&times;</span>
+            <h1>🎉 CONGRATULATIONS! 🎉</h1>
+            <p>You have reached 100% Mastery in:</p>
+            <h2 id="mastered-skill-name" class="highlight">Skill Name</h2>
+            <p>You have unlocked a new Badge!</p>
+            <div id="unlocked-badge-display" class="badge-big">🏆</div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+              </html>
+              
