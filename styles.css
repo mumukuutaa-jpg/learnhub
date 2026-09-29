@@ -2,83 +2,60 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    display: flex;
     background-color: #0f172a;
     color: #f8fafc;
-    min-height: 100vh;
 }
 
-/* Sidebar */
-.sidebar {
-    width: 260px;
-    background-color: #1e293b;
-    padding: 20px;
+.navbar {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-}
-
-.sidebar h2 {
-    color: #38bdf8;
-    margin-bottom: 30px;
-}
-
-.sidebar ul {
-    list-style: none;
-}
-
-.sidebar li {
-    padding: 12px 15px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-    color: #94a3b8;
-}
-
-.sidebar li:hover, .sidebar li.active {
-    background-color: #334155;
-    color: #fff;
-}
-
-.user-profile {
-    display: flex;
     align-items: center;
-    gap: 10px;
-    border-top: 1px solid #334155;
-    padding-top: 15px;
+    background-color: #1e293b;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #334155;
 }
 
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #0284c7;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.logo {
+    font-size: 1.5rem;
     font-weight: bold;
+    color: #38bdf8;
 }
 
-.info {
+.nav-links {
     display: flex;
-    flex-direction: column;
-    font-size: 0.85rem;
+    gap: 10px;
 }
 
-.user-level {
-    color: #fbbf24;
+.nav-btn {
+    background: transparent;
+    border: 1px solid #475569;
+    color: #cbd5e1;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-/* Main Content */
-.content {
-    flex: 1;
-    padding: 30px;
-    overflow-y: auto;
+.nav-btn.active, .nav-btn:hover {
+    background-color: #0284c7;
+    border-color: #38bdf8;
+    color: white;
+}
+
+.user-stats {
+    font-weight: bold;
+    background-color: #0369a1;
+    padding: 8px 16px;
+    border-radius: 20px;
+}
+
+.main-container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
 }
 
 .tab-content {
@@ -89,360 +66,166 @@ body {
     display: block;
 }
 
-/* Dashboard */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.card {
-    background-color: #1e293b;
-    padding: 20px;
-    border-radius: 12px;
-}
-
-.margin-top {
-    margin-top: 20px;
-}
-
-.activity-list {
-    list-style: none;
-    margin-top: 10px;
-}
-
-.activity-list li {
-    padding: 8px 0;
-    border-bottom: 1px solid #334155;
-}
-
-.skills-progress-container p {
-    padding: 8px 0;
-    border-bottom: 1px solid #334155;
-}
-
-.empty {
-    color: #64748b;
-    font-size: 0.9rem;
-}
-
-/* Books Section */
-.category-filter {
-    margin: 20px 0;
+.button-bar {
     display: flex;
-    gap: 8px;
+    gap: 10px;
+    margin: 1rem 0;
     flex-wrap: wrap;
 }
 
-.filter-btn {
-    background: #334155;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
+.lang-btn {
+    background-color: #1e293b;
+    color: #e2e8f0;
+    border: 1px solid #334155;
+    padding: 8px 14px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.85rem;
 }
 
-.filter-btn.active {
-    background: #0284c7;
+.lang-btn.active {
+    background-color: #2563eb;
+    border-color: #60a5fa;
+}
+
+.course-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 350px;
+    border-radius: 8px;
+    background: #000;
+}
+
+.timer-box {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e293b;
+    padding: 10px 15px;
+    border-radius: 6px;
+}
+
+#claim-btn {
+    background-color: #16a34a;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#claim-btn:disabled {
+    background-color: #475569;
+    cursor: not-allowed;
+}
+
+.playlist-box {
+    background-color: #1e293b;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.lesson-item {
+    background-color: #334155;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.lesson-item:hover {
+    background-color: #475569;
 }
 
 .books-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
+    margin-top: 1.5rem;
 }
 
 .book-card {
-    background-color: #1e293b;
-    padding: 15px;
+    background: #1e293b;
+    padding: 1rem;
     border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    text-align: center;
+    border: 1px solid #334155;
 }
 
 .book-card img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
     border-radius: 6px;
-    margin-bottom: 10px;
 }
 
-.book-card h4 {
-    margin-bottom: 5px;
+.book-card h3 {
     font-size: 1rem;
+    margin: 10px 0 5px 0;
 }
 
 .book-card p {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #94a3b8;
     margin-bottom: 10px;
 }
 
-.book-card button {
+.action-btn {
     background-color: #0284c7;
-    border: none;
     color: white;
-    padding: 8px;
+    border: none;
+    padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
+    margin: 4px;
 }
 
-/* Skills & Video Player */
-.skills-container {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.skill-selector {
-    background-color: #1e293b;
-    padding: 15px;
+.reader-card {
+    background: #1e293b;
     border-radius: 8px;
-    max-height: 600px;
-    overflow-y: auto;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border: 1px solid #38bdf8;
 }
 
-.skill-selector ul {
-    list-style: none;
-    margin-top: 10px;
-}
-
-.skill-selector li {
-    padding: 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-bottom: 6px;
-    background-color: #0f172a;
-    font-size: 0.9rem;
-}
-
-.skill-selector li.active {
-    background-color: #0284c7;
-}
-
-.skill-desc {
-    color: #94a3b8;
-    font-size: 0.9rem;
-    margin-top: 5px;
-}
-
-/* Coding Language Selector */
-.language-selector {
-    margin-top: 15px;
-    background-color: #1e293b;
-    padding: 12px;
-    border-radius: 8px;
-}
-
-.language-selector h3 {
-    font-size: 0.95rem;
-    margin-bottom: 8px;
-    color: #38bdf8;
-}
-
-.lang-buttons {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.lang-btn {
-    background-color: #0f172a;
-    color: #f8fafc;
-    border: 1px solid #334155;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: 0.2s;
-}
-
-.lang-btn.active, .lang-btn:hover {
-    background-color: #0284c7;
-    border-color: #0284c7;
-}
-
-.iframe-wrapper {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    margin-top: 15px;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #000;
-}
-
-.iframe-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.progress-bar-container {
-    width: 100%;
-    background-color: #334155;
-    border-radius: 10px;
-    height: 22px;
-    position: relative;
-    margin-top: 15px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    background-color: #22c55e;
-    height: 100%;
-    width: 0%;
-    transition: width 0.4s ease;
-}
-
-#skill-progress-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
-.playlist-controls {
-    margin-top: 20px;
-}
-
-.playlist-items {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.playlist-item {
-    background-color: #1e293b;
-    padding: 12px 15px;
-    border-radius: 6px;
+.reader-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
-.playlist-item.watched {
-    border-left: 4px solid #22c55e;
-}
-
-.playlist-item button {
-    background-color: #334155;
+.close-btn {
+    background: #dc2626;
     color: white;
     border: none;
-    padding: 6px 12px;
+    padding: 4px 10px;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.playlist-item button:hover {
-    background-color: #0284c7;
-}
-
-/* Badges */
-.badges-grid {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.badge-item {
-    background-color: #334155;
-    padding: 10px 15px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: bold;
-    color: #fbbf24;
-    border: 1px solid #f59e0b;
-}
-
-.badge-big {
-    font-size: 4rem;
-    margin: 20px 0;
-}
-
-/* Leaderboard */
-.leaderboard-table {
+.audio-element {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #1e293b;
-    border-radius: 8px;
-    overflow: hidden;
+    margin-bottom: 1rem;
 }
 
-.leaderboard-table th, .leaderboard-table td {
-    padding: 12px 15px;
-    text-align: left;
-}
-
-.leaderboard-table th {
-    background-color: #334155;
-    color: #38bdf8;
-}
-
-.leaderboard-table tr:nth-child(even) {
+.pages-display {
     background-color: #0f172a;
-}
-
-/* Modals */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 100;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: #1e293b;
-    padding: 25px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 550px;
-    position: relative;
-    max-height: 85vh;
+    border: 1px solid #334155;
+    padding: 1rem;
+    margin-top: 1rem;
+    max-height: 300px;
     overflow-y: auto;
+    font-family: serif;
+    white-space: pre-wrap;
+    line-height: 1.6;
 }
 
-.close-btn {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.highlight {
-    color: #38bdf8;
-    margin: 10px 0;
-}
-
-.audio-player-mock {
-    margin: 15px 0;
-    background-color: #0f172a;
-    padding: 12px;
-    border-radius: 8px;
-        }
+.hidden {
+    display: none;
+    }
