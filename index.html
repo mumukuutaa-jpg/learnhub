@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LearnHub & Library Platform</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Notice the ./ before style.css -->
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-    <!-- Header / Navbar -->
     <header class="navbar">
         <div class="logo">🚀 LearnHub</div>
-        <nav class="nav-links">
+        <div class="nav-links">
             <button onclick="switchTab('coding')" class="nav-btn active">💻 Coding Courses</button>
             <button onclick="switchTab('library')" class="nav-btn">📚 Audio Books & Reader</button>
-        </nav>
+        </div>
         <div class="user-stats">
             🏆 Points: <span id="points-display">0</span> PTS
         </div>
@@ -63,9 +63,9 @@
 
     </div>
 
-    <!-- Script imports in modular order -->
-    <script src="books.js"></script>
-    <script src="coding.js"></script>
-    <script src="app.js"></script>
+    <!-- IMPORTANT: Notice the ./ and load app.js LAST -->
+    <script src="./books.js"></script>
+    <script src="./coding.js"></script>
+    <script src="./app.js"></script>
 </body>
 </html>
