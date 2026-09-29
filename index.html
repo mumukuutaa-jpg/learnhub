@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LearnHub & Library Platform</title>
-    <!-- Notice the ./ before style.css -->
-    <link rel="stylesheet" href="./style.css">
+    <title>LearnHub - Courses & Audio Books</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
     <header class="navbar">
         <div class="logo">🚀 LearnHub</div>
         <div class="nav-links">
-            <button onclick="switchTab('coding')" class="nav-btn active">💻 Coding Courses</button>
-            <button onclick="switchTab('library')" class="nav-btn">📚 Audio Books & Reader</button>
+            <button id="btn-coding" onclick="switchTab('coding')" class="nav-btn active">💻 Coding Courses</button>
+            <button id="btn-library" onclick="switchTab('library')" class="nav-btn">📚 Audio Books & Reader</button>
         </div>
         <div class="user-stats">
             🏆 Points: <span id="points-display">0</span> PTS
         </div>
     </header>
 
-    <div class="main-container">
+    <main class="main-container">
 
         <!-- TAB 1: CODING COURSES -->
         <section id="coding-tab" class="tab-content active">
@@ -29,9 +28,9 @@
             
             <div class="course-grid">
                 <div class="video-container">
-                    <iframe id="video-player" src="" frameborder="0" allowfullscreen></iframe>
+                    <iframe id="video-player" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                     <div class="timer-box">
-                        <span id="timer-status">⏱ Watch 30s of lesson to claim points</span>
+                        <span id="timer-status">⏱ Select a lesson to start watch timer</span>
                         <button id="claim-btn" onclick="claimLessonPoints()" disabled>Claim +20 PTS</button>
                     </div>
                 </div>
@@ -42,12 +41,12 @@
             </div>
         </section>
 
-        <!-- TAB 2: BOOKS & AUDIO -->
+        <!-- TAB 2: AUDIO BOOKS & READER -->
         <section id="library-tab" class="tab-content">
-            <h2>Public Domain Audiobooks & Reader</h2>
+            <h2>Public Domain Audiobooks & Text Reader</h2>
             <div id="books-grid" class="books-grid"></div>
 
-            <!-- Book Reader / Player Modal Section -->
+            <!-- Book Reader View -->
             <div id="reader-view" class="reader-card hidden">
                 <div class="reader-header">
                     <h3 id="current-book-title">Select a Book</h3>
@@ -57,15 +56,13 @@
                 <div class="text-controls">
                     <button onclick="loadBookPages()" class="action-btn">📖 Fetch Pages from Gutenberg API</button>
                 </div>
-                <div id="book-pages" class="pages-display">Click the button above to load full book pages...</div>
+                <div id="book-pages" class="pages-display">Click the button above to load book pages...</div>
             </div>
         </section>
 
-    </div>
+    </main>
 
-    <!-- IMPORTANT: Notice the ./ and load app.js LAST -->
-    <script src="./books.js"></script>
-    <script src="./coding.js"></script>
+    <!-- Single JavaScript File -->
     <script src="./app.js"></script>
 </body>
 </html>
