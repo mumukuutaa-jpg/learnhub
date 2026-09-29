@@ -3,66 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LearnHub - Courses & Audio Books</title>
+    <title>LearnHub - Skill Mastery Platform</title>
     <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <!-- NAVBAR -->
     <header class="navbar">
         <div class="logo">🚀 LearnHub</div>
-        <div class="nav-links">
-            <button id="btn-coding" onclick="switchTab('coding')" class="nav-btn active">💻 Coding Courses</button>
-            <button id="btn-library" onclick="switchTab('library')" class="nav-btn">📚 Audio Books & Reader</button>
-        </div>
-        <div class="user-stats">
-            🏆 Points: <span id="points-display">0</span> PTS
+        <nav class="nav-links">
+            <button id="btn-courses" onclick="switchTab('courses')" class="nav-btn active">📚 Skill Courses</button>
+            <button id="btn-leaderboard" onclick="switchTab('leaderboard')" class="nav-btn">🏆 Leaderboard</button>
+            <button id="btn-profile" onclick="switchTab('profile')" class="nav-btn">👤 Profile</button>
+        </nav>
+        <div class="user-pill" onclick="switchTab('profile')">
+            <img id="nav-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Learner" alt="Avatar">
+            <span id="nav-username">Learner</span>
+            <span class="pts-badge"><span id="points-display">0</span> PTS</span>
         </div>
     </header>
 
     <main class="main-container">
 
-        <!-- TAB 1: CODING COURSES -->
-        <section id="coding-tab" class="tab-content active">
-            <h2>Select a Programming Track</h2>
-            <div id="lang-buttons" class="button-bar"></div>
-            
-            <div class="course-grid">
-                <div class="video-container">
-                    <iframe id="video-player" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    <div class="timer-box">
-                        <span id="timer-status">⏱ Select a lesson to start watch timer</span>
+        <!-- TAB 1: COURSES -->
+        <section id="courses-tab" class="tab-content active">
+            <!-- Category Selector -->
+            <div class="category-bar">
+                <button class="cat-btn active" onclick="filterCategory('Coding', this)">💻 Coding & Dev</button>
+                <button class="cat-btn" onclick="filterCategory('PenSpinning', this)">🖊️ Pen Spinning</button>
+                <button class="cat-btn" onclick="filterCategory('Handwriting', this)">✍️ Handwriting</button>
+                <button class="cat-btn" onclick="filterCategory('Design', this)">🎨 UI/UX & Design</button>
+                <button class="cat-btn" onclick="filterCategory('Marketing', this)">📈 Marketing & SEO</button>
+                <button class="cat-btn" onclick="filterCategory('Cybersecurity', this)">🛡️ Cybersecurity</button>
+                <button class="cat-btn scam-btn" onclick="filterCategory('ScamLearning', this)">⚠️ Scam Learning</button>
+            </div>
+
+            <!-- Track Selector -->
+            <div id="subtrack-buttons" class="subtrack-bar"></div>
+
+            <!-- Video Player & Playlist Layout -->
+            <div class="course-layout" id="course-content-area">
+                <div class="video-card">
+                    <div class="iframe-wrapper">
+                        <iframe id="video-player" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+                    <div class="timer-card">
+                        <div class="timer-info">
+                            <span id="timer-status">⏱ Select a lesson to begin training</span>
+                            <div class="progress-bar"><div id="progress-fill"></div></div>
+                        </div>
                         <button id="claim-btn" onclick="claimLessonPoints()" disabled>Claim +20 PTS</button>
                     </div>
                 </div>
-                <div class="playlist-box">
-                    <h3>Course Lessons</h3>
-                    <div id="lesson-list"></div>
+
+                <div class="playlist-card">
+                    <h3 id="current-track-title">Lessons</h3>
+                    <div id="lesson-list" class="lesson-list"></div>
+                </div>
+            </div>
+
+            <!-- Coming Soon Overlay for Scam Learning -->
+            <div id="coming-soon-card" class="coming-soon-container hidden">
+                <div class="coming-soon-box">
+                    <div class="lock-icon">🔒</div>
+                    <h2>Scam Learning & Security Awareness</h2>
+                    <p>Learn how to identify phishing scams, social engineering tricks, and online fraud before it happens.</p>
+                    <span class="badge-coming-soon">🚀 COMING SOON</span>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 2: AUDIO BOOKS & READER -->
-        <section id="library-tab" class="tab-content">
-            <h2>Public Domain Audiobooks & Text Reader</h2>
-            <div id="books-grid" class="books-grid"></div>
+        <!-- TAB 2: LEADERBOARD -->
+        <section id="leaderboard-tab" class="tab-content">
+            <div class="leaderboard-card">
+                <h2>🏆 Top Learners Leaderboard</h2>
+                <p class="subtitle">Complete lessons to earn points and climb the rankings!</p>
+                <div id="leaderboard-list" class="leaderboard-list"></div>
+            </div>
+        </section>
 
-            <!-- Book Reader View -->
-            <div id="reader-view" class="reader-card hidden">
-                <div class="reader-header">
-                    <h3 id="current-book-title">Select a Book</h3>
-                    <button onclick="closeReader()" class="close-btn">✖ Close Reader</button>
+        <!-- TAB 3: PROFILE & AVATAR SETTINGS -->
+        <section id="profile-tab" class="tab-content">
+            <div class="profile-card">
+                <h2>👤 Profile Settings</h2>
+                <div class="profile-preview">
+                    <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=Learner" alt="Avatar Preview">
+                    <div>
+                        <h3 id="profile-name-display">Learner</h3>
+                        <p class="points-summary">Total Score: <strong id="profile-pts-display">0</strong> PTS</p>
+                    </div>
                 </div>
-                <audio id="audio-player" controls class="audio-element"></audio>
-                <div class="text-controls">
-                    <button onclick="loadBookPages()" class="action-btn">📖 Fetch Pages from Gutenberg API</button>
-                </div>
-                <div id="book-pages" class="pages-display">Click the button above to load book pages...</div>
+
+                <form onsubmit="saveProfile(event)" class="profile-form">
+                    <label>Username</label>
+                    <input type="text" id="username-input" placeholder="Enter your name" required>
+
+                    <label>Avatar Preset</label>
+                    <div class="avatar-options">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Alpha" onclick="selectPresetAvatar(this.src)">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Felix" onclick="selectPresetAvatar(this.src)">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Zoe" onclick="selectPresetAvatar(this.src)">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Jack" onclick="selectPresetAvatar(this.src)">
+                    </div>
+
+                    <label>Or Custom Avatar Image URL</label>
+                    <input type="url" id="avatar-url-input" placeholder="https://example.com/avatar.jpg">
+
+                    <button type="submit" class="save-btn">💾 Save Profile</button>
+                </form>
             </div>
         </section>
 
     </main>
 
-    <!-- Single JavaScript File -->
     <script src="./app.js"></script>
 </body>
-</html>
+</htm
