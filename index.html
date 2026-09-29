@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn & Master - Books & Skills</title>
+    <title>Mastery Hub - Books & Essential Skills</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- Sidebar Navigation -->
@@ -15,7 +14,7 @@
         <ul>
             <li class="active" data-tab="dashboard-tab">📊 Dashboard</li>
             <li data-tab="books-tab">📚 Books Library</li>
-            <li data-tab="skills-tab">🎯 Skills & Video Player</li>
+            <li data-tab="skills-tab">🎯 Skills & Video Courses</li>
             <li data-tab="leaderboard-tab">🏆 Leaderboard</li>
         </ul>
         <div class="user-profile">
@@ -33,28 +32,28 @@
         <!-- DASHBOARD TAB -->
         <section id="dashboard-tab" class="tab-content active">
             <h1>Welcome Back!</h1>
-            <p>Continue your journey of learning books and acquiring real-world skills.</p>
+            <p>Track your reading progress, video course mastery, and earned badges.</p>
             
             <div class="dashboard-grid">
                 <div class="card">
                     <h3>📖 Recently Read Books</h3>
                     <ul id="recent-books-list" class="activity-list">
-                        <li class="empty">No books read yet. Start reading!</li>
+                        <li class="empty">No books read yet. Start reading from the library!</li>
                     </ul>
                 </div>
 
                 <div class="card">
                     <h3>⚡ Skills You Are Learning</h3>
                     <div id="recent-skills-list" class="skills-progress-container">
-                        <p class="empty">No skills started yet. Pick a skill to learn!</p>
+                        <p class="empty">No skills started yet. Pick a skill to start watching!</p>
                     </div>
                 </div>
             </div>
 
             <div class="card margin-top">
-                <h3>🏅 Your Badges</h3>
+                <h3>🏅 Mastered Skill Badges</h3>
                 <div id="dashboard-badges" class="badges-grid">
-                    <p class="empty">Complete 100% of any skill to earn your first badge!</p>
+                    <p class="empty">Complete 100% of any skill playlist to earn your first badge!</p>
                 </div>
             </div>
         </section>
@@ -63,11 +62,13 @@
         <section id="books-tab" class="tab-content">
             <h1>Book Library</h1>
             <div class="category-filter">
-                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn active" data-category="all">All Books</button>
                 <button class="filter-btn" data-category="psychology">Psychology</button>
+                <button class="filter-btn" data-category="math">Mathematics</button>
+                <button class="filter-btn" data-category="history">History</button>
+                <button class="filter-btn" data-category="fiction">Story Books (Fiction)</button>
                 <button class="filter-btn" data-category="wealth">Money & Wealth</button>
                 <button class="filter-btn" data-category="school">School Books</button>
-                <button class="filter-btn" data-category="history">History</button>
             </div>
 
             <div id="books-grid" class="books-grid"></div>
@@ -75,17 +76,25 @@
 
         <!-- SKILLS TAB -->
         <section id="skills-tab" class="tab-content">
-            <h1>Skill Video Courses</h1>
+            <h1>Essential Skills & Video Academy</h1>
             <div class="skills-container">
                 <!-- Skill Selection Sidebar -->
                 <div class="skill-selector">
-                    <h3>Select Skill</h3>
+                    <h3>Select a Skill</h3>
                     <ul id="skills-list"></ul>
                 </div>
 
                 <!-- Video Player & Playlist -->
                 <div class="video-player-section">
                     <h2 id="active-skill-title">Select a skill to start</h2>
+                    <p id="active-skill-desc" class="skill-desc"></p>
+
+                    <!-- Language Sub-Selector (Only visible when Coding is selected) -->
+                    <div id="coding-language-selector" class="language-selector" style="display: none;">
+                        <h3>Select Programming Language:</h3>
+                        <div class="lang-buttons" id="lang-buttons-container"></div>
+                    </div>
+                    
                     <div class="progress-bar-container">
                         <div class="progress-bar" id="skill-progress-bar"></div>
                         <span id="skill-progress-text">0% Mastered</span>
@@ -96,7 +105,7 @@
                     </div>
 
                     <div class="playlist-controls">
-                        <h3>Course Lessons / Playlist</h3>
+                        <h3>Course Video Lessons</h3>
                         <div id="playlist-items" class="playlist-items"></div>
                     </div>
                 </div>
@@ -106,7 +115,7 @@
         <!-- LEADERBOARD TAB -->
         <section id="leaderboard-tab" class="tab-content">
             <h1>Global Leaderboard</h1>
-            <p>Top learners mastering skills and reading books across the platform.</p>
+            <p>Top learners mastering life skills and expanding knowledge across the platform.</p>
             
             <table class="leaderboard-table">
                 <thead>
@@ -135,11 +144,11 @@
                     <p>🎧 Audio Version Playing...</p>
                     <audio id="audio-player" controls>
                         <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
+                        Your browser does not support audio.
                     </audio>
                 </div>
-                <h3>Summary / Excerpt</h3>
-                <p id="modal-book-content">Book text content goes here...</p>
+                <h3>Summary & Excerpt</h3>
+                <p id="modal-book-content">Book text content...</p>
             </div>
         </div>
     </div>
@@ -158,5 +167,4 @@
 
     <script src="app.js"></script>
 </body>
-              </html>
-              
+</html>
