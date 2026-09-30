@@ -3,120 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LearnHub - Skill Mastery Platform</title>
-    <link rel="stylesheet" href="./styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>LearnHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <!-- NAVBAR -->
-    <header class="navbar">
+    <nav class="navbar">
         <div class="logo">🚀 LearnHub</div>
-        <nav class="nav-links">
-            <button id="btn-courses" onclick="switchTab('courses')" class="nav-btn active">📚 Skill Courses</button>
-            <button id="btn-leaderboard" onclick="switchTab('leaderboard')" class="nav-btn">🏆 Leaderboard</button>
-            <button id="btn-profile" onclick="switchTab('profile')" class="nav-btn">👤 Profile</button>
-        </nav>
-        <div class="user-pill" onclick="switchTab('profile')">
-            <img id="nav-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Learner" alt="Avatar">
-            <span id="nav-username">Learner</span>
-            <span class="pts-badge"><span id="points-display">0</span> PTS</span>
+        <div class="nav-links">
+            <button id="btn-courses" class="nav-btn active" onclick="switchTab('courses')">📚 Skill Courses</button>
+            <button id="btn-leaderboard" class="nav-btn" onclick="switchTab('leaderboard')">🏆 Leaderboard</button>
+            <button id="btn-profile" class="nav-btn" onclick="switchTab('profile')">👤 Profile</button>
         </div>
-    </header>
+        <div class="user-badge" onclick="switchTab('profile')">
+            <img id="nav-avatar" src="" alt="User">
+            <span id="nav-username">Learner</span>
+            <span class="pts-pill"><span id="points-display">0</span> PTS</span>
+        </div>
+    </nav>
 
-    <main class="main-container">
+    <main class="container">
+        <!-- CATEGORY SELECTOR BAR -->
+        <div class="category-bar">
+            <button class="cat-btn active" onclick="filterCategory('Coding', this)">💻 Coding & Dev</button>
+            <button class="cat-btn" onclick="filterCategory('PenSpinning', this)">🖊️ Pen Spinning</button>
+            <button class="cat-btn" onclick="filterCategory('Handwriting', this)">✍️️ Handwriting</button>
+            <button class="cat-btn" onclick="filterCategory('Design', this)">🎨 UI/UX & Design</button>
+            <button class="cat-btn" onclick="filterCategory('Marketing', this)">📈 Marketing & SEO</button>
+            <button class="cat-btn" onclick="filterCategory('Cybersecurity', this)">🛡️ Cybersecurity</button>
+            <button class="cat-btn" onclick="filterCategory('ScamLearning', this)">🚨 Scam Learning</button>
+        </div>
 
         <!-- TAB 1: COURSES -->
-        <section id="courses-tab" class="tab-content active">
-            <!-- Category Selector -->
-            <div class="category-bar">
-                <button class="cat-btn active" onclick="filterCategory('Coding', this)">💻 Coding & Dev</button>
-                <button class="cat-btn" onclick="filterCategory('PenSpinning', this)">🖊️ Pen Spinning</button>
-                <button class="cat-btn" onclick="filterCategory('Handwriting', this)">✍️ Handwriting</button>
-                <button class="cat-btn" onclick="filterCategory('Design', this)">🎨 UI/UX & Design</button>
-                <button class="cat-btn" onclick="filterCategory('Marketing', this)">📈 Marketing & SEO</button>
-                <button class="cat-btn" onclick="filterCategory('Cybersecurity', this)">🛡️ Cybersecurity</button>
-                <button class="cat-btn scam-btn" onclick="filterCategory('ScamLearning', this)">⚠️ Scam Learning</button>
-            </div>
-
-            <!-- Track Selector -->
+        <div id="courses-tab" class="tab-content active">
             <div id="subtrack-buttons" class="subtrack-bar"></div>
 
-            <!-- Video Player & Playlist Layout -->
-            <div class="course-layout" id="course-content-area">
+            <div id="course-content-area" class="course-grid">
+                <!-- Video Player Card -->
                 <div class="video-card">
                     <div class="iframe-wrapper">
-                        <iframe id="video-player" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <iframe id="video-player" src="" frameborder="0" allowfullscreen></iframe>
                     </div>
-                    <div class="timer-card">
-                        <div class="timer-info">
-                            <span id="timer-status">⏱ Select a lesson to begin training</span>
-                            <div class="progress-bar"><div id="progress-fill"></div></div>
-                        </div>
+                    <div class="timer-container">
+                        <div id="timer-status">⏱ Watch Timer: 00m 00s / 00m 30s</div>
+                        <div class="progress-bar"><div id="progress-fill"></div></div>
                         <button id="claim-btn" onclick="claimLessonPoints()" disabled>Claim +20 PTS</button>
                     </div>
                 </div>
 
-                <div class="playlist-card">
+                <!-- Lessons Panel -->
+                <div class="lessons-card">
                     <h3 id="current-track-title">Lessons</h3>
-                    <div id="lesson-list" class="lesson-list"></div>
+                    <div id="lesson-list"></div>
                 </div>
             </div>
 
-            <!-- Coming Soon Overlay for Scam Learning -->
-            <div id="coming-soon-card" class="coming-soon-container hidden">
-                <div class="coming-soon-box">
-                    <div class="lock-icon">🔒</div>
-                    <h2>Scam Learning & Security Awareness</h2>
-                    <p>Learn how to identify phishing scams, social engineering tricks, and online fraud before it happens.</p>
-                    <span class="badge-coming-soon">🚀 COMING SOON</span>
+            <!-- SCAM LEARNING SECTION -->
+            <div id="scam-awareness-container" class="scam-container hidden">
+                <h2>⚠️ Scam Breakdown & Prevention</h2>
+                <p class="subtitle">Select a category below to see how scammers manipulate players and how you can protect yourself.</p>
+
+                <div id="scam-subtrack-buttons" class="subtrack-bar"></div>
+
+                <div class="scam-dual-grid">
+                    <div class="scam-box tactic-box">
+                        <h3>🎭 How They Do It (Scammer Tactics)</h3>
+                        <pre id="scam-how-it-works"></pre>
+                    </div>
+                    <div class="scam-box defense-box">
+                        <h3>🛡️ How to Avoid & Stay Safe</h3>
+                        <pre id="scam-how-to-avoid"></pre>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- TAB 2: LEADERBOARD -->
-        <section id="leaderboard-tab" class="tab-content">
-            <div class="leaderboard-card">
+        <div id="leaderboard-tab" class="tab-content">
+            <div class="card">
                 <h2>🏆 Top Learners Leaderboard</h2>
-                <p class="subtitle">Complete lessons to earn points and climb the rankings!</p>
-                <div id="leaderboard-list" class="leaderboard-list"></div>
+                <div id="leaderboard-list"></div>
             </div>
-        </section>
+        </div>
 
-        <!-- TAB 3: PROFILE & AVATAR SETTINGS -->
-        <section id="profile-tab" class="tab-content">
-            <div class="profile-card">
-                <h2>👤 Profile Settings</h2>
-                <div class="profile-preview">
-                    <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=Learner" alt="Avatar Preview">
+        <!-- TAB 3: PROFILE -->
+        <div id="profile-tab" class="tab-content">
+            <div class="card profile-card">
+                <h2>👤 Learner Profile</h2>
+                <div class="profile-header">
+                    <img id="profile-avatar-preview" src="" alt="Avatar">
                     <div>
                         <h3 id="profile-name-display">Learner</h3>
-                        <p class="points-summary">Total Score: <strong id="profile-pts-display">0</strong> PTS</p>
+                        <p>Total Balance: <strong id="profile-pts-display">0</strong> PTS</p>
                     </div>
                 </div>
 
-                <form onsubmit="saveProfile(event)" class="profile-form">
+                <form onsubmit="saveProfile(event)">
                     <label>Username</label>
-                    <input type="text" id="username-input" placeholder="Enter your name" required>
+                    <input type="text" id="username-input" required>
 
-                    <label>Avatar Preset</label>
-                    <div class="avatar-options">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Alpha" onclick="selectPresetAvatar(this.src)">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Felix" onclick="selectPresetAvatar(this.src)">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Zoe" onclick="selectPresetAvatar(this.src)">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Jack" onclick="selectPresetAvatar(this.src)">
+                    <label>Avatar URL</label>
+                    <input type="text" id="avatar-url-input" required>
+
+                    <p>Or choose a preset avatar:</p>
+                    <div class="preset-avatars">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Alex" onclick="selectPresetAvatar(this.src)">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Sarah" onclick="selectPresetAvatar(this.src)">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=David" onclick="selectPresetAvatar(this.src)">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Learner" onclick="selectPresetAvatar(this.src)">
                     </div>
 
-                    <label>Or Custom Avatar Image URL</label>
-                    <input type="url" id="avatar-url-input" placeholder="https://example.com/avatar.jpg">
-
-                    <button type="submit" class="save-btn">💾 Save Profile</button>
+                    <button type="submit" class="submit-btn">Save Changes</button>
                 </form>
             </div>
-        </section>
-
+        </div>
     </main>
 
-    <script src="./app.js"></script>
+    <script src="./app.js?v=4"></script>
 </body>
-</htm
+</html>
+p
