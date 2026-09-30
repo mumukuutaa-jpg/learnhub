@@ -258,7 +258,27 @@ body {
     font-size: 0.9rem;
 }
 
-/* LEADERBOARD & PROFILE */
+/* LEADERBOARD SCROLLABLE CONTAINER */
+#leaderboard-list {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin-top: 1rem;
+}
+
+#leaderboard-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#leaderboard-list::-webkit-scrollbar-thumb {
+    background: var(--card-border);
+    border-radius: 4px;
+}
+
+#leaderboard-list::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-blue);
+}
+
 .leaderboard-item {
     display: flex;
     align-items: center;
@@ -279,6 +299,23 @@ body {
     border: 1px solid var(--accent-blue);
 }
 
+.rank {
+    font-weight: bold;
+    color: var(--text-muted);
+    min-width: 40px;
+}
+
+.pts-badge {
+    margin-left: auto;
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--accent-blue);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+/* PROFILE STYLES */
 .profile-card form {
     display: flex;
     flex-direction: column;
