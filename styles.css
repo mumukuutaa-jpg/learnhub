@@ -1,11 +1,9 @@
 :root {
-    --bg-dark: #0b0f19;
-    --card-bg: #151c2e;
-    --card-border: #232d45;
-    --accent-blue: #38bdf8;
-    --accent-purple: #818cf8;
-    --accent-green: #34d399;
-    --accent-orange: #fb923c;
+    --bg-dark: #0f172a;
+    --card-bg: #1e293b;
+    --card-border: #334155;
+    --accent-blue: #3b82f6;
+    --accent-green: #22c55e;
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
 }
@@ -29,77 +27,91 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: rgba(21, 28, 46, 0.8);
-    backdrop-filter: blur(12px);
+    background: var(--card-bg);
     border-bottom: 1px solid var(--card-border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
 }
 
 .logo {
-    font-size: 1.4rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
 .nav-links {
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 
 .nav-btn {
     background: transparent;
-    border: 1px solid transparent;
+    border: none;
     color: var(--text-muted);
     padding: 8px 16px;
     border-radius: 8px;
-    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    font-weight: 600;
 }
 
 .nav-btn.active, .nav-btn:hover {
-    background: var(--card-border);
+    background: #334155;
     color: var(--text-main);
-    border-color: rgba(255, 255, 255, 0.1);
 }
 
-.user-pill {
+.user-badge {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    padding: 6px 14px;
-    border-radius: 30px;
     cursor: pointer;
+    background: #0f172a;
+    padding: 4px 12px;
+    border-radius: 20px;
 }
 
-.user-pill img {
+.user-badge img {
     width: 28px;
     height: 28px;
     border-radius: 50%;
 }
 
-.pts-badge {
-    background: linear-gradient(135deg, #0284c7, #6366f1);
-    color: white;
-    padding: 2px 10px;
+.pts-pill {
+    background: var(--accent-blue);
+    padding: 2px 8px;
     border-radius: 12px;
     font-size: 0.8rem;
-    font-weight: 700;
+    font-weight: bold;
 }
 
-/* CONTAINER & TABS */
-.main-container {
-    max-width: 1200px;
+/* CONTAINER & CATEGORIES */
+.container {
+    max-width: 1100px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
+.category-bar, .subtrack-bar {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-bottom: 1rem;
+}
+
+.cat-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-muted);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.cat-btn.active {
+    background: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue);
+}
+
+/* TABS & CARDS */
 .tab-content {
     display: none;
 }
@@ -108,61 +120,23 @@ body {
     display: block;
 }
 
-/* CATEGORY & TRACK BARS */
-.category-bar, .subtrack-bar {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    margin-bottom: 1rem;
+.hidden {
+    display: none !important;
 }
 
-.cat-btn {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    color: var(--text-muted);
-    padding: 10px 18px;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.cat-btn.active {
-    background: linear-gradient(135deg, #2563eb, #4f46e5);
-    color: white;
-    border-color: transparent;
-}
-
-.cat-btn.scam-btn {
-    border-color: rgba(251, 146, 60, 0.4);
-    color: var(--accent-orange);
-}
-
-.subtrack-bar .cat-btn {
-    padding: 6px 14px;
-    font-size: 0.9rem;
-    border-radius: 20px;
-}
-
-/* COURSE LAYOUT */
-.course-layout {
+.course-grid {
     display: grid;
-    grid-template-columns: 2.2fr 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: 20px;
 }
 
-.course-layout.hidden {
-    display: none;
-}
-
-@media (max-width: 850px) {
-    .course-layout {
+@media (max-width: 768px) {
+    .course-grid {
         grid-template-columns: 1fr;
     }
 }
 
-.video-card, .playlist-card {
+.video-card, .lessons-card, .card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 16px;
@@ -171,224 +145,178 @@ body {
 
 .iframe-wrapper {
     position: relative;
-    padding-top: 56.25%;
-    border-radius: 12px;
+    padding-bottom: 56.25%;
+    height: 0;
     overflow: hidden;
-    background: #000;
+    border-radius: 12px;
 }
 
 .iframe-wrapper iframe {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
-.timer-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.timer-container {
     margin-top: 1rem;
-    background: rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    border-radius: 10px;
 }
 
 .progress-bar {
     width: 100%;
-    height: 6px;
-    background: var(--card-border);
-    border-radius: 10px;
-    margin-top: 6px;
+    height: 8px;
+    background: #334155;
+    border-radius: 4px;
+    margin: 8px 0;
     overflow: hidden;
 }
 
 #progress-fill {
-    height: 100%;
     width: 0%;
+    height: 100%;
     background: var(--accent-green);
-    transition: width 0.3s ease;
+    transition: width 0.3s;
 }
 
 #claim-btn {
+    width: 100%;
+    padding: 10px;
     background: var(--accent-green);
-    color: #064e3b;
     border: none;
-    padding: 10px 18px;
     border-radius: 8px;
-    font-weight: 700;
+    color: white;
+    font-weight: bold;
     cursor: pointer;
-    white-space: nowrap;
 }
 
 #claim-btn:disabled {
-    background: var(--card-border);
-    color: var(--text-muted);
+    background: #334155;
     cursor: not-allowed;
 }
 
-.lesson-list {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
+/* LESSON LIST */
 .lesson-item {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--card-border);
-    padding: 12px;
+    padding: 10px;
+    margin-top: 8px;
+    background: #0f172a;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s;
 }
 
-.lesson-item:hover, .lesson-item.active {
-    background: rgba(56, 189, 248, 0.1);
-    border-color: var(--accent-blue);
+.lesson-item.active {
+    border: 1px solid var(--accent-blue);
 }
 
-/* COMING SOON OVERLAY */
-.coming-soon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 4rem 1rem;
-}
-
-.coming-soon-container.hidden {
-    display: none;
-}
-
-.coming-soon-box {
-    background: var(--card-bg);
-    border: 1px dashed var(--accent-orange);
-    border-radius: 20px;
-    padding: 3rem 2rem;
-    text-align: center;
-    max-width: 500px;
-}
-
-.lock-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-}
-
-.coming-soon-box h2 {
-    margin-bottom: 0.5rem;
-    color: var(--text-main);
-}
-
-.coming-soon-box p {
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
-}
-
-.badge-coming-soon {
-    background: rgba(251, 146, 60, 0.2);
-    color: var(--accent-orange);
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-weight: 800;
-    font-size: 0.85rem;
-    border: 1px solid var(--accent-orange);
-}
-
-/* LEADERBOARD & PROFILE */
-.leaderboard-card, .profile-card {
+/* SCAM LEARNING STYLES */
+.scam-container {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 16px;
-    padding: 2rem;
-    max-width: 650px;
-    margin: 0 auto;
+    padding: 1.5rem;
 }
 
 .subtitle {
     color: var(--text-muted);
-    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
 }
 
+.scam-dual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 850px) {
+    .scam-dual-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.scam-box {
+    background: var(--bg-dark);
+    border-radius: 12px;
+    padding: 1.2rem;
+    border: 1px solid var(--card-border);
+}
+
+.tactic-box {
+    border-left: 4px solid #f87171;
+}
+
+.defense-box {
+    border-left: 4px solid var(--accent-green);
+}
+
+.scam-box pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: inherit;
+    color: var(--text-main);
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+/* LEADERBOARD & PROFILE */
 .leaderboard-item {
     display: flex;
     align-items: center;
     gap: 15px;
     padding: 12px;
-    border-bottom: 1px solid var(--card-border);
-}
-
-.leaderboard-item.is-user {
-    background: rgba(99, 102, 241, 0.15);
+    background: #0f172a;
     border-radius: 10px;
-}
-
-.rank {
-    font-weight: 800;
-    width: 25px;
-    color: var(--accent-blue);
+    margin-top: 8px;
 }
 
 .leaderboard-item img {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
 }
 
-.user-info {
-    flex-grow: 1;
+.leaderboard-item.is-user {
+    border: 1px solid var(--accent-blue);
 }
 
-.profile-preview {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 2rem;
-}
-
-.profile-preview img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 2px solid var(--accent-blue);
-}
-
-.profile-form {
+.profile-card form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
+    margin-top: 1rem;
 }
 
-.profile-form input {
-    background: var(--bg-dark);
+.profile-card input {
+    padding: 10px;
+    background: #0f172a;
     border: 1px solid var(--card-border);
     color: white;
-    padding: 12px;
     border-radius: 8px;
 }
 
-.avatar-options {
+.preset-avatars {
     display: flex;
-    gap: 12px;
+    gap: 10px;
 }
 
-.avatar-options img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+.preset-avatars img {
+    width: 40px;
+    height: 40px;
     cursor: pointer;
+    border-radius: 50%;
     border: 2px solid transparent;
 }
 
-.avatar-options img:hover {
+.preset-avatars img:hover {
     border-color: var(--accent-blue);
 }
 
-.save-btn {
-    background: linear-gradient(135deg, var(--accent-blue), #2563eb);
-    color: white;
+.submit-btn {
+    padding: 10px;
+    background: var(--accent-blue);
     border: none;
-    padding: 12px;
+    color: white;
     border-radius: 8px;
-    font-weight: 700;
+    font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
-    }
+}
