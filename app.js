@@ -1,5 +1,4 @@
 // --- SKILLS DATABASE WITH CUSTOM REQUIRED WATCH TIME (IN SECONDS) ---
-// 2 hours = 7200 seconds, 15 mins = 900 seconds, etc.
 const coursesData = {
     Coding: {
         "SQL": [
@@ -51,7 +50,107 @@ const coursesData = {
             { title: "Ethical Hacking & Security Fundamentals", vid: "3Kq1MIfTWCE", duration: 900 } // 15 Mins
         ]
     },
-    ScamLearning: null // Trigger for Coming Soon State
+    ScamLearning: null
+};
+
+// --- SCAM LEARNING DATABASE (EXACT PLAYBOOKS + DEFENSE) ---
+const scamData = {
+    "Blox Fruit Normal Scam": {
+        howItWorks: `
+🏴‍☠️ Blox fruit Normal Scam:
+
+💬 Scamming methods for blox fruit:
+
+1. 🐅 If your scamming of fruit like tiger or control or any fruit you should first talk to the victim a bit and then go to trade and also while trading always show vouches before trading and atleast talk for 10 mins and you have to lie a bit or twist it 
+
+🎭 Example: 
+You) I will give you (any game or fruit or perm) 🥭
+Victim) I have trust issue so I can't go first 😰
+You) Show vouches 📜
+Victim) How can I believe you? 🤨
+You) If you can't trust me then have a good day 👋
+
+💡 So by that example the victim talk can be different but it's mostly similar and if the victim said no in every way I said so just go and find more victims because he's not only one in the world as a victim 🌍
+
+2. 🎟️ If your doing Perm fruit or gamepasses scam for robux here is the trick:
+🖼️ You should use a website and screenshot it and crop it and send it to them and for the screenshot you can get it by dming me because it's a secret website and with it 70% says yes or if the victim says no then just follow the tips of first one 📈
+
+3. 📌 Don't act desperate:
+😤 Don't act like you want them to join. Instead, brag:
+> "Too bad you won't be able to get this because you wouldn't join." 😏
+
+🎁 Bonus tip: Scam 10+ victim so there is 80% chance of a successful scam 🎯
+`,
+        howToAvoid: `
+🛡️ HOW TO AVOID & STAY SAFE:
+
+1. ❌ Never Trust Off-Platform "Vouches":
+• Screenshots of past trades or Discord vouches can easily be fake or stolen.
+• ALWAYS trade strictly inside the official in-game window where both items lock in at the same time.
+
+2. 🚪 Ignore "Walking Away" Guilt Trips:
+• If someone says "Trust me or have a good day," let them walk away! Never let fear of missing out force you into a risky trade.
+
+3. 🛑 Reject External Screenshots:
+• Never accept cropped images, Discord links, or external websites as proof of Robux or Perm fruits.
+
+4. 🚫 Report & Block:
+• If someone asks you to go first, report them in-game and block them immediately.
+`
+    },
+    "ID Scam": {
+        howItWorks: `
+🕵️ Id scam trick:
+
+💡 TIPS & TRICK
+
+📌 If victim says: "Can't join through links" 🔗
+> "Too bad then, I can't add friends because I have parental settings control that limits my friends since my dad did it." 👨‍👦
+
+📌 If victim says: "I add you?" 👤
+> "No I'm sorry because this is not my private server but my friends so you can only join through link." 🔒
+
+📌 If victim says: "It's not loading" 🌐
+> "Open it in Chrome. Roblox private server links / profile links only work on Chrome, you know that." 💻
+
+📌 How to get many DMs: 💬
+🎯 Find what people mostly want in the game your victims play.
+
+📌 If they know it's a fake link: 🚨
+🗣️ Just convince them that it's not. If they're convinced — good. If not — just ignore and find more victims.
+
+📌 Create your own methods: 🧠
+✨ Most people have their own methods based on their experience.
+
+---
+
+Tip 1: 🛑 If someone asks to add them → "I can't because of parental settings"
+Tip 2: 🆕 Look for new Discord accounts — they usually don't know about hitting.
+Tip 3: 🚫 Avoid servers where everyone is already hitting.
+Tip 4: 🔗 If they ask why is.gd link → "Discord added a security system where people go through security links first."
+Tip 5: 💻 If they ask why roblox.ml instead of roblox.com → "All devices have different links. I'm on MacBook so it shows .ml."
+Tip 6: 🔐 If they ask why they need to login → Act confused: "What do you mean? Just press the green play button and you'll join my server without logging in."
+
+🔮 Remember: Keep these tips in mind when hitting in servers!
+`,
+        howToAvoid: `
+🛡️ HOW TO AVOID & STAY SAFE:
+
+1. 🔑 The Golden Link Rule:
+• REAL Roblox links will NEVER ask you to log in if you are already logged into Roblox on your browser or app.
+• If a link asks for your password or 2FA code, IT IS A PHISHING SITE!
+
+2. 🔍 Inspect the URL Extension:
+• Official Roblox links ALWAYS end in "roblox.com".
+• Extensions like ".ml", ".tk", ".gd", or URLs with "is.gd" shorteners are fake. MacBooks do NOT change website links to .ml!
+
+3. 🛡️ Ignore Parental Control Excuses:
+• Parental controls do NOT prevent adding friends while allowing external links. It's a fake trick.
+
+4. 🔐 Enable 2-Factor Authentication (2FA):
+• Turn on an Authenticator App on your account so scammers can't take your account even if they get your password.
+`
+    }
 };
 
 // --- MOCK LEADERBOARD DATA ---
@@ -72,7 +171,7 @@ let currentCategory = "Coding";
 let currentTrack = "SQL";
 let timer = null;
 let secondsWatched = 0;
-let currentRequiredTime = 30; // Default fallback
+let currentRequiredTime = 30;
 
 // --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -81,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLeaderboard();
 });
 
-// Helper Function: Format seconds into readable string (e.g. 1h 15m 00s or 02m 30s)
+// Format seconds into readable string
 function formatTime(totalSeconds) {
     const hrs = Math.floor(totalSeconds / 3600);
     const mins = Math.floor((totalSeconds % 3600) / 60);
@@ -104,31 +203,33 @@ function switchTab(tabName) {
     if (tabName === 'leaderboard') renderLeaderboard();
 }
 
-// Category & Subtrack Logic
+// Category Navigation
 function filterCategory(cat, btnElement) {
     currentCategory = cat;
     document.querySelectorAll('.category-bar .cat-btn').forEach(b => b.classList.remove('active'));
     btnElement.classList.add('active');
     
     const courseContentArea = document.getElementById('course-content-area');
-    const comingSoonCard = document.getElementById('coming-soon-card');
+    const scamArea = document.getElementById('scam-awareness-container');
     const subtrackButtons = document.getElementById('subtrack-buttons');
 
     if (cat === 'ScamLearning') {
         courseContentArea.classList.add('hidden');
         subtrackButtons.style.display = 'none';
-        comingSoonCard.classList.remove('hidden');
+        scamArea.classList.remove('hidden');
+        renderScamSubtracks();
         return;
     } else {
         courseContentArea.classList.remove('hidden');
         subtrackButtons.style.display = 'flex';
-        comingSoonCard.classList.add('hidden');
+        scamArea.classList.add('hidden');
     }
 
     currentTrack = Object.keys(coursesData[cat])[0];
     renderSubtracks();
 }
 
+// Course Subtrack Logic
 function renderSubtracks() {
     const container = document.getElementById('subtrack-buttons');
     container.innerHTML = '';
@@ -177,7 +278,6 @@ function playLesson(lessonObj, element) {
 
     document.getElementById('video-player').src = `https://www.youtube.com/embed/${lessonObj.vid}?autoplay=1`;
     
-    // Set custom duration for the current lesson
     currentRequiredTime = lessonObj.duration || 30;
     startTimer();
 }
@@ -213,6 +313,33 @@ function claimLessonPoints() {
     saveAndSyncProfile();
     document.getElementById('claim-btn').disabled = true;
     alert("🎉 +20 PTS added!");
+}
+
+// Scam Learning Subtracks
+function renderScamSubtracks() {
+    const navContainer = document.getElementById('scam-subtrack-buttons');
+    navContainer.innerHTML = '';
+
+    const categories = Object.keys(scamData);
+    categories.forEach((catName, index) => {
+        const btn = document.createElement('button');
+        btn.className = `cat-btn ${index === 0 ? 'active' : ''}`;
+        btn.innerText = catName;
+        btn.onclick = () => {
+            document.querySelectorAll('#scam-subtrack-buttons .cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            displayScamDetails(catName);
+        };
+        navContainer.appendChild(btn);
+    });
+
+    displayScamDetails(categories[0]);
+}
+
+function displayScamDetails(catName) {
+    const selected = scamData[catName];
+    document.getElementById('scam-how-it-works').innerText = selected.howItWorks;
+    document.getElementById('scam-how-to-avoid').innerText = selected.howToAvoid;
 }
 
 // Profile Management
@@ -271,4 +398,4 @@ function renderLeaderboard() {
         `;
         list.appendChild(item);
     });
-                    }
+                }
