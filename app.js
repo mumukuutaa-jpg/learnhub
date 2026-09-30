@@ -153,12 +153,26 @@ Tip 6: 🔐 If they ask why they need to login → Act confused: "What do you me
     }
 };
 
-// --- MOCK LEADERBOARD DATA ---
-let mockUsers = [
-    { name: "Alex Rover", points: 240, avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Alex" },
-    { name: "Sarah Connor", points: 180, avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=Sarah" },
-    { name: "David Tech", points: 120, avatar: "https://api.dicebear.com/7.x/bottts/svg?seed=David" }
+// --- GENERATE 99 MOCK USERS FOR TOP 100 LEADERBOARD ---
+const mockNames = [
+    "Alex Rover", "Sarah Connor", "David Tech", "Emma Watson", "Liam Vance",
+    "Noah Smith", "Olivia Brown", "Ethan Hunt", "Sophia Martinez", "Mason Lee",
+    "Isabella Clark", "Jacob Wright", "Mia Torres", "Lucas King", "Harper Green",
+    "Aiden Hall", "Evelyn Adams", "Logan Baker", "Abigail Gonzalez", "Jackson Nelson"
 ];
+
+let mockUsers = [];
+for (let i = 1; i <= 99; i++) {
+    const baseName = mockNames[(i - 1) % mockNames.length];
+    const uniqueName = i <= 20 ? baseName : `${baseName} #${i}`;
+    const pts = Math.max(10, 1000 - (i * 9) + Math.floor(Math.random() * 5));
+    
+    mockUsers.push({
+        name: uniqueName,
+        points: pts,
+        avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=User_${i}`
+    });
+}
 
 // --- APP STATE ---
 let profile = JSON.parse(localStorage.getItem('user_profile')) || {
@@ -377,7 +391,7 @@ function loadProfileUI() {
     document.getElementById('avatar-url-input').value = profile.avatar;
 }
 
-// Leaderboard Logic
+// Leaderboard Logic (1 to 100)
 function renderLeaderboard() {
     const list = document.getElementById('leaderboard-list');
     list.innerHTML = '';
@@ -385,7 +399,7 @@ function renderLeaderboard() {
     let allUsers = [...mockUsers, { name: profile.name, points: profile.points, avatar: profile.avatar, isUser: true }];
     allUsers.sort((a, b) => b.points - a.points);
 
-    allUsers.forEach((u, index) => {
+    allUsers.slice(0, 100).forEach((u, index) => {
         const item = document.createElement('div');
         item.className = `leaderboard-item ${u.isUser ? 'is-user' : ''}`;
         item.innerHTML = `
@@ -398,4 +412,4 @@ function renderLeaderboard() {
         `;
         list.appendChild(item);
     });
-}
+        }
